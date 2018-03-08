@@ -3,10 +3,6 @@ import './SearchList.css';
 
 
 class SearchList extends Component {
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div>

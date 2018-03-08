@@ -3,10 +3,6 @@ import './Details.css';
 
 
 class Details extends Component {
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div>

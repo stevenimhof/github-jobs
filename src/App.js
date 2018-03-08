@@ -11,7 +11,8 @@ class App extends Component {
             job: '',
             location: '',
             showSearchList: false,
-            showDetails: false
+            showDetails: false,
+            data: []
         };
     }
 
@@ -46,7 +47,8 @@ class App extends Component {
             job: '',
             location: '',
             showSearchList: false,
-            showDetails: false
+            showDetails: false,
+            data: []
         });
     };
 
@@ -56,6 +58,8 @@ class App extends Component {
         state.showSearchList = true;
         state.showDetails = false;
         this.setState(state);
+
+        this.getJobs(this.state.job, this.state.location);
     };
 
     onDetailView() {
@@ -64,6 +68,41 @@ class App extends Component {
         state.showSearchList = false;
         state.showDetails = true;
         this.setState(state);
+    }
+
+    getJobs(job, location) {
+      // fetch somehow not working?! Fehler:
+      /* Quellübergreifende (Cross-Origin) Anfrage blockiert: Die Gleiche-Quelle-Regel verbietet 
+      das Lesen der externen Ressource auf https://jobs.github.com/positions.json?description=python&location=sf&full_time=true. 
+      (Grund: CORS-Kopfzeile 'Access-Control-Allow-Origin' fehlt). */
+
+      //tutorial: https://www.javascriptstuff.com/react-ajax-best-practices/#1-root-component
+      //react: https://reactjs.org/docs/faq-ajax.html#how-can-i-make-an-ajax-call
+
+
+      //const url = 'https://jobs.github.com/positions.json?description=' + job + '&location=' + location;
+      /* const url = 'https://jobs.github.com/positions?description=java&location=';
+      axios.get(`http://www.reddit.com/r/funny.json`)
+      .then(res => {
+        const data = res.data.data.children.map(obj => obj.data);
+        this.setState({ data });
+      }); */
+      /* fetch('https://jobs.github.com/positions.json?description=java&location=')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            data: result
+          });
+        },
+        (error) => {
+          console.log('error while fetching url')
+        }
+      ) */
+      fetch('https://jobs.github.com/positions.json?description=python&location=sf&full_time=true')
+      .then(res => res.json())
+      .then((result) => {console.log(result)},
+    (error) => {console.log(error)})
     }
 
     render() {
@@ -79,6 +118,7 @@ class App extends Component {
                     <p>{"location: " + this.state.location.toString()}</p>
                     <p>{"showSearchList: " + this.state.showSearchList.toString()}</p>
                     <p>{"showDetails: " + this.state.showDetails.toString()}</p>
+                    <p>{"data: " + this.state.data.toString()}</p>
                 </div>
 
                 <JobForm

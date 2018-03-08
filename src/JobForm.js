@@ -3,7 +3,6 @@ import './JobForm.css';
 
 
 class JobForm extends Component {
-
     render() {
         return (
             <div>
