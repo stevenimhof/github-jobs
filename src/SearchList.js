@@ -11,8 +11,13 @@ class SearchList extends Component {
         return (
             <div>
                 <h1>Search Results:</h1>
-                <p>Job: {this.props.job}</p>
-                <p>Location: {this.props.location}</p>
+                <ul>
+                    <li>
+                        <p>Job: {this.props.job}</p>
+                        <p>Location: {this.props.location}</p>
+                        <button onClick={() => this.props.onClick('details')}>view Details</button>
+                    </li>
+                </ul>
             </div>
         );
     }
