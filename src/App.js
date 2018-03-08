@@ -3,6 +3,7 @@ import './App.css';
 import JobForm from './JobForm';
 import SearchList from './SearchList';
 import Details  from './Details'
+import jQuery from 'jquery'
 
 class App extends Component {
     constructor(props) {
@@ -59,7 +60,7 @@ class App extends Component {
         state.showDetails = false;
         this.setState(state);
 
-        this.getJobs(this.state.job, this.state.location);
+        this.getData(this.state.job, this.state.location);
     };
 
     onDetailView() {
@@ -72,9 +73,7 @@ class App extends Component {
 
     getJobs(job, location) {
       // fetch somehow not working?! Fehler:
-      /* Quellübergreifende (Cross-Origin) Anfrage blockiert: Die Gleiche-Quelle-Regel verbietet 
-      das Lesen der externen Ressource auf https://jobs.github.com/positions.json?description=python&location=sf&full_time=true. 
-      (Grund: CORS-Kopfzeile 'Access-Control-Allow-Origin' fehlt). */
+      /* SyntaxError: JSON.parse: unexpected end of data at line 1 column 1 of the JSON data */
 
       //tutorial: https://www.javascriptstuff.com/react-ajax-best-practices/#1-root-component
       //react: https://reactjs.org/docs/faq-ajax.html#how-can-i-make-an-ajax-call
@@ -98,11 +97,32 @@ class App extends Component {
         (error) => {
           console.log('error while fetching url')
         }
+      ) 
+      fetch("https://jobs.github.com/positions.json?description=python&location=sf&full_time=true", {mode: 'no-cors'})
+      .then((res) => res.json())
+      .then(
+        (result) => {
+            console.log("res: " + result.toString());
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+            console.log(error);
+        }
       ) */
-      fetch('https://jobs.github.com/positions.json?description=python&location=sf&full_time=true')
-      .then(res => res.json())
-      .then((result) => {console.log(result)},
-    (error) => {console.log(error)})
+      //fetch('https://jobs.github.com/positions.json?description=python&location=sf&full_time=true?callback=myFunction',function (res) {console.log(res.json())})
+    }
+
+    getData(job,location) {
+        //source: https://medium.com/@brettcelestre/storing-json-data-in-react-with-setstate-3b588b74dcce
+        jQuery.ajax({
+            url: 'https://jobs.github.com/positions.json?description=' + job + '&location=' + location,
+            dataType: 'jsonp',
+            success: function(parsed_json){
+              console.log('data: ', parsed_json);
+            }
+        });
     }
 
     render() {
