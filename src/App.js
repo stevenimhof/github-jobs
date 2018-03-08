@@ -117,7 +117,8 @@ class App extends Component {
     getData(job,location) {
         //source: https://medium.com/@brettcelestre/storing-json-data-in-react-with-setstate-3b588b74dcce
         jQuery.ajax({
-            url: 'https://jobs.github.com/positions.json?description=' + job + '&location=' + location,
+            //url: 'https://jobs.github.com/positions.json?description=' + job + '&location=' + location,
+            url: 'https://jobs.github.com/positions.json?description=java&location=london' //fixed test url... REMOVE
             dataType: 'jsonp',
             success: function(parsed_json){
               console.log('data: ', parsed_json);
