@@ -1,23 +1,26 @@
 import React, {Component} from 'react';
-import './SearchList.css';
+import ListItem from './ListItem'
+//import './SearchList.css';
 
 
 class SearchList extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() {
         return (
             <div>
                 <h1>Search Results:</h1>
-                <ul>
-                    <li>
-                        <p>Job: {this.props.job}</p>
-                        <p>Location: {this.props.location}</p>
-                        <button onClick={() => this.props.onClick('details')}>view Details</button>
-                    </li>
-                </ul>
+                <div className="search-results">
+                    {
+                        this.props.jobs.map((el, i) =>
+                            (<ListItem
+                                key={i}
+                                job={el}
+                                onClick={(i) => this.props.onClick(i)} />))
+                    }
+                </div>
             </div>
         );
     }

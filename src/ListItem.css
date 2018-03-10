@@ -1,0 +1,16 @@
+.list-item {
+	width: 80%;
+    border: 1px solid #ccc;
+    text-align: left;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.list-item button {
+    display: inline-block;
+    background: #333;
+    color: white;
+    text-decoration: none;
+    padding: 7px 10px;
+    margin-top: 5px;
+}

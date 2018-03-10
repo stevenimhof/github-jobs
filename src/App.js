@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import './App.css';
-import JobForm from './JobForm';
 import SearchList from './SearchList';
 import Details  from './Details'
+import JobForm from './JobForm';
+
 
 class App extends Component {
     constructor(props) {
@@ -11,11 +12,14 @@ class App extends Component {
             job: '',
             location: '',
             showSearchList: false,
-            showDetails: false
+            showDetails: false,
+            currentJobID: null,
+            jobs: []
         };
     }
 
-    handleClick(i) {
+    handleClick(i, v) {
+        console.log(i);
         switch (i.toString()) {
             case 'search':
                 this.onSearch();
@@ -24,7 +28,7 @@ class App extends Component {
                 this.onReset();
                 break;
             case 'details':
-                this.onDetailView();
+                this.onDetailView(v);
                 break;
             default:
                 console.log('click not handeled!')
@@ -32,7 +36,6 @@ class App extends Component {
     }
 
     onChange(e) {
-        console.log('change')
         const state = this.state
         state[e.target.name] = e.target.value;
         this.setState(state);
@@ -42,7 +45,6 @@ class App extends Component {
     onReset() {
         console.log('reset')
         this.setState({
-
             job: '',
             location: '',
             showSearchList: false,
@@ -56,14 +58,25 @@ class App extends Component {
         state.showSearchList = true;
         state.showDetails = false;
         this.setState(state);
+
+
+        const url = `https://crossorigin.me/https://jobs.github.com/positions.json?description=${state.job}&location=${state.location}`
+        fetch(url)
+            .then(response => response.json())
+            .then(data => this.setState({jobs: data}));
     };
 
-    onDetailView() {
-        console.log('details');
+    onDetailView(jobid) {
+        console.log(jobid);
         const state = this.state;
         state.showSearchList = false;
         state.showDetails = true;
+        state.currentJobID = jobid;
         this.setState(state);
+    }
+
+    getCurrentJob() {
+        return this.state.jobs.filter(job => job.id === this.state.currentJobID)
     }
 
     render() {
@@ -73,34 +86,25 @@ class App extends Component {
                     <h1 className="App-title">Github Jobs</h1>
                 </header>
 
-                <div className="App-state">
-                    <h3>current State:</h3>
-                    <p>{"job: " + this.state.job.toString()}</p>
-                    <p>{"location: " + this.state.location.toString()}</p>
-                    <p>{"showSearchList: " + this.state.showSearchList.toString()}</p>
-                    <p>{"showDetails: " + this.state.showDetails.toString()}</p>
-                </div>
-
-                <JobForm
-                    job={this.state.job}
-                    location={this.state.location}
-                    onChange={(e) => this.onChange(e)}
-                    onClick={(i) => this.handleClick(i)}/>
-
-                {/* SearchList component */}
-                {this.state.showSearchList ?
-                    <SearchList
+                <div className={this.state.showDetails ? 'hide' : ''}>
+                    <JobForm
                         job={this.state.job}
                         location={this.state.location}
-                        onClick={(i) => this.handleClick(i)}/> :
-                    null
-                }
+                        onChange={(e) => this.onChange(e)}
+                        onClick={(i) => this.handleClick(i)} />
+
+                    {this.state.showSearchList ?
+                        <SearchList
+                            jobs={this.state.jobs}
+                            onClick={(i) => this.onDetailView(i)}/> :
+                        null
+                    }
+                </div>
 
                 {/* Details component */}
                 {this.state.showDetails ?
                     <Details
-                        job={this.state.job}
-                        location={this.state.location}
+                        job={this.getCurrentJob()}
                         onClick={(i) => this.handleClick(i)}/> :
                     null
                 }
