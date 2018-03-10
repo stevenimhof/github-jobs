@@ -8,11 +8,20 @@ class JobForm extends Component {
         return (
             <div>
                 <div className="JobForm">
-                    <input type="text" name="job" value={this.props.job} onChange={this.props.onChange} placeholder="Job"/>
-                    <input type="text" name="location" value={this.props.location} onChange={this.props.onChange}
-                           placeholder="Location"/>
+                    <input
+                        type="text"
+                        name="job"
+                        value={this.props.job}
+                        onChange={this.props.onChange}
+                        placeholder="Job" />
+                    <input
+                        type="text"
+                        name="location"
+                        value={this.props.location}
+                        onChange={this.props.onChange}
+                        placeholder="Location" />
                     <br/>
-                    <button onClick={() => this.props.onClick('search')}>Search</button>
+                    <button type="submit" onClick={() => this.props.onClick('search')}>Search</button>
                     <button onClick={() => this.props.onClick('reset')}>Reset</button>
                 </div>
             </div>

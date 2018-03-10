@@ -3,20 +3,23 @@ import './Details.css';
 
 
 class Details extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() {
+        const job = this.props.job[0];
         return (
-            <div>
+            <div className="detail-view">
+                <button>go Back</button>
                 <h1>Details:</h1>
-                <p>Job: {this.props.job}</p>
-                <p>Location: {this.props.location}</p>
+                Title: {job.title}<br/>
+                Location: {job.location}<br/>
+                Company: {job.company}<br/>
+                Type: {job.type}
                 <h3>Description:</h3>
-                <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
-                <p>Picture</p>
-                <button onClick={() => this.props.onClick('back')}>go Back</button>
+                <div dangerouslySetInnerHTML={{__html: job.description}} />
+                <button>go Back</button>
             </div>
         );
     }

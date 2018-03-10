@@ -21,3 +21,7 @@
 .App-state {
   font-size: 9px;
 }
+
+.hide {
+	display: none;
+}
