@@ -27,6 +27,9 @@ class App extends Component {
             case 'reset':
                 this.onReset();
                 break;
+            case 'back':
+                this.onBack();
+                break;
             case 'details':
                 this.onDetailView(v);
                 break;
@@ -34,6 +37,20 @@ class App extends Component {
                 console.log('click not handeled!')
         }
     }
+
+    onBack(){
+        console.log('search')
+        const state = this.state;
+        state.showSearchList = true;
+        state.showDetails = false;
+        this.setState(state);
+
+        const url = `https://crossorigin.me/https://jobs.github.com/positions.json?description=${state.job}&location=${state.location}`
+        fetch(url)
+            .then(response => response.json())
+            .then(data => this.setState({jobs: data}));
+    };
+
 
     onChange(e) {
         const state = this.state
