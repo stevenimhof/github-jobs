@@ -44,8 +44,9 @@ class App extends Component {
         state.showSearchList = true;
         state.showDetails = false;
         this.setState(state);
+        console.log('state', state);
 
-        const url = `https://crossorigin.me/https://jobs.github.com/positions.json?description=${state.job}&location=${state.location}`
+        const url = `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${state.job}&location=${state.location}`
         fetch(url)
             .then(response => response.json())
             .then(data => this.setState({jobs: data}));
@@ -77,7 +78,7 @@ class App extends Component {
         this.setState(state);
 
 
-        const url = `https://crossorigin.me/https://jobs.github.com/positions.json?description=${state.job}&location=${state.location}`
+        const url = `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${state.job}&location=${state.location}`
         fetch(url)
             .then(response => response.json())
             .then(data => this.setState({jobs: data}));
