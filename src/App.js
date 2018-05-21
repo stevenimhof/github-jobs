@@ -46,6 +46,7 @@ class App extends Component {
         this.setState(state);
         console.log('state', state);
 
+        // fetch API-Data
         const url = `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${state.job}&location=${state.location}`
         fetch(url)
             .then(response => response.json())
@@ -77,7 +78,7 @@ class App extends Component {
         state.showDetails = false;
         this.setState(state);
 
-
+        // fetch API-Data
         const url = `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${state.job}&location=${state.location}`
         fetch(url)
             .then(response => response.json())
@@ -111,6 +112,7 @@ class App extends Component {
                         onChange={(e) => this.onChange(e)}
                         onClick={(i) => this.handleClick(i)} />
 
+                    {/* SearchList Component */}
                     {this.state.showSearchList ?
                         <SearchList
                             jobs={this.state.jobs}
