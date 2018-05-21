@@ -4,9 +4,6 @@ import ListItem from './ListItem'
 
 
 class SearchList extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (

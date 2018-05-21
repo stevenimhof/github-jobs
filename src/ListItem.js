@@ -3,13 +3,10 @@ import './ListItem.css';
 
 
 class ListItem extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const {job} = this.props;
-        const jobLink = '/jobs/' + job.id;
+        //const jobLink = '/jobs/' + job.id;
         return (
             <div className="list-item">
                 <strong>{job.title}</strong><br/>
